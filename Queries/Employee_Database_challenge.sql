@@ -37,6 +37,11 @@ ORDER BY emp_no, to_date DESC;
 -- 17. First, retrieve the number of titles from the Unique Titles table.
 -- 18. Then, create a Retiring Titles table to hold the required information.
 -- 19. Group the table by title, then sort the count column in descending order.
+SELECT COUNT(emp_no) as Count, title
+INTO retiring_titles
+FROM unique_titles
+GROUP BY title
+ORDER BY Count DESC;
 
 -- Deliverable 2: The Employees Eligible for the Mentorship Program
 -- 1. Retrieve the emp_no, first_name, last_name, and birth_date columns from the Employees table.
