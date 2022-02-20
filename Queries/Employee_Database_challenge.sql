@@ -64,3 +64,28 @@ FROM employees AS e
 	WHERE (de.to_date = '9999-01-01')
 		AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
 ORDER BY e.emp_no;
+
+-- Extra code for analysis
+-- Retirement percentage
+SELECT 
+    total_emp, 
+    retire_emp, 
+    (retire_emp * 100.00/ total_emp) AS Percentage
+FROM
+    (SELECT COUNT(emp_no) AS total_emp FROM employees) a，
+     (SELECT COUNT(emp_no) AS retire_emp FROM unique_titles) b;
+
+-- Mentor percentage
+SELECT 
+    total_re AS Total_Retirement, 
+    mentor_re AS Eligible_Mentor, 
+    (mentor_re * 100.00/ total_re) AS Percentage
+FROM
+    (SELECT SUM(count) AS total_re FROM retiring_titles) a,
+    (SELECT COUNT(emp_no) AS mentor_re FROM mentorship_eligibilty) b;
+
+--Titles of mentor program
+SELECT COUNT(emp_no) as Count, title
+FROM mentorship_eligibilty
+GROUP BY title
+ORDER BY Count DESC;
